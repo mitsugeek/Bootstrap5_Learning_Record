@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Breakpoints (ブレイクポイント)</title>
+
+    <style>
+    div#app { background-color: white;}
+    </style>
+  </head>
+  <body>
+    <h1>Breakpoints (ブレイクポイント)</h1>
+
+    <div class="alert alert-dark" role="alert">
+    ブレイクポイントは、デバイスやビューポートのサイズによってレイアウトがどのようにレスポンシブに変化するかを示すトリガーです。
+    </div>
+
+    <div id="app">
+
+        <table class="table">
+            <tr><td>sm</td><td>Extra small</td><td>100%</td><td></td></tr>
+            <tr><td>md</td><td>Small</td><td>540px</td><td>＜576px</td></tr>
+            <tr><td>md</td><td>Medium</td><td>720px</td><td>＜768px</td></tr>
+            <tr><td>lg</td><td>Large</td><td>960px</td><td>＜992px</td></tr>
+            <tr><td>xl</td><td>X-Large</td><td>1140px</td><td>＜1200px</td></tr>
+            <tr><td>xxl</td><td>XX-Large</td><td>1320px</td><td>＜1400px</td></tr>
+        </table>
+
+        <div class="alert alert-dark" role="alert">
+            画面を動かすと、以下のdivタグの大きさが変わる。
+        </div>
+
+        <div class="container bg-primary"     ref="getParentWidth"    >container     ( {{ containersm_size     }}px )</div>
+        <div class="container-sm bg-secondary"  ref="getParentWidth_sm" >container-sm  ( {{ containersm_size_sm  }}px )</div>
+        <div class="container-md bg-success"  ref="getParentWidth_md" >container-md  ( {{ containersm_size_md  }}px )</div>
+        <div class="container-lg bg-danger"  ref="getParentWidth_lg" >container-lg  ( {{ containersm_size_lg  }}px )</div>
+        <div class="container-xl bg-warning"  ref="getParentWidth_xl" >container-xl  ( {{ containersm_size_xl  }}px )</div>
+        <div class="container-xxl bg-info" ref="getParentWidth_xxl">container-xxl ( {{ containersm_size_xxl }}px )</div>
+        <div class="bg-light" ref="getWidth"    > ( {{ widthsize     }}px )</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                containersm_size_sm: 0,
+                containersm_size_md: 0,
+                containersm_size_lg: 0,
+                containersm_size_xl: 0,
+                containersm_size_xxl: 0,
+                containersm_size: 0,
+                widthsize:0
+            },
+
+            mounted () {
+                this.getParentWidth();
+                window.addEventListener('resize', this.getParentWidth);
+            },
+
+            methods: {
+                getParentWidth () {
+                    this.containersm_size_sm  = this.$refs.getParentWidth_sm.clientWidth;
+                    this.containersm_size_md  = this.$refs.getParentWidth_md.clientWidth;
+                    this.containersm_size_lg  = this.$refs.getParentWidth_lg.clientWidth;
+                    this.containersm_size_xl  = this.$refs.getParentWidth_xl.clientWidth;
+                    this.containersm_size_xxl = this.$refs.getParentWidth_xxl.clientWidth;
+                    this.containersm_size     = this.$refs.getParentWidth.clientWidth;
+                    this.widthsize            = this.$refs.getWidth.clientWidth;
+                }
+            }
+
+        });
+    </script>
+  </body>
+</html>
